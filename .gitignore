@@ -1,0 +1,29 @@
+# Claude Code local tooling (skills, settings, graph cache) — not part of the app
+.claude/
+.graphifyignore
+graphify-out/
+
+# Editor
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Old/reference material, not part of the current app
+last frontend/
+frontend-edoctorat-master-1.rar
+
+# --- backend (Maven / Spring Boot) ---
+backend/target/
+# Runtime config with real secrets (JWT secret, SMTP password, OAuth client id)
+backend/src/main/resources/application.properties
+# Uploaded/seed files containing real candidate documents (PII)
+backend/uploads/
+backend/data/
+*.log
+
+# --- frontend (Vite / npm) ---
+frontend/node_modules/
+frontend/dist/
+frontend/scratch/
