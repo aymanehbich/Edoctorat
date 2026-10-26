@@ -7,8 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import com.edoc.models.Group;
 
+import java.util.Optional;
+
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
+    Optional<Group> findByName(String name);
+
     @Query(value = "SELECT id FROM auth_group WHERE name = :name", nativeQuery = true)
     Long findIdByName(@Param("name") String name);
 }

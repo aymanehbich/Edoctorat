@@ -18,7 +18,15 @@ export const http = axios.create({
 
 http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const { accessToken } = useAuthStore.getState()
-  if (accessToken) {
+  const url = (config.url ?? '').split('?')[0].replace(/\/+$/, '')
+  const publicAuthPaths = [
+    '/token', '/token/refresh', '/login_scolarite', '/verify-is-prof',
+    '/confirm-email', '/verify-token', '/register/candidat',
+    '/request-password-reset', '/perform-password-reset',
+  ]
+  const isPublicAuthRequest = publicAuthPaths.some((path) => url.endsWith(path))
+
+  if (accessToken && !isPublicAuthRequest) {
     config.headers = config.headers ?? new AxiosHeaders()
     config.headers.set('Authorization', `Bearer ${accessToken}`)
   }

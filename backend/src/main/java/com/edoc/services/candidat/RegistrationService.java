@@ -126,10 +126,11 @@ public class RegistrationService {
 
 
             // add user group
-            Long userid = user.getId();
-            Long candidatGroupId = groupRepository.findIdByName("candidat");
-
-            userRepository.addUserToGroup(userid, candidatGroupId);
+            var candidatGroup = groupRepository.findByName("candidat")
+                .orElseThrow(() -> new IllegalStateException(
+                    "Required 'candidat' group is missing. Restart the backend to initialize it."));
+            user.getGroups().add(candidatGroup);
+            userRepository.save(user);
     
                         
             tokenRepository.deleteById(verificationToken.getId());
